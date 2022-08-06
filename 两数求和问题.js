@@ -5,7 +5,7 @@
 // 因为 nums[0] + nums[1] = 2 + 7 = 9 所以返回 [0, 1]
 
 // 原始方法
-var total = function (nums, target) {
+var twoSum = function (nums, target) {
   for (var i = 0; i < nums.length; i++) {
     for (var j = 0; j < nums.length; j++) {
       if (nums[i] + nums[j] === target) {
@@ -15,8 +15,11 @@ var total = function (nums, target) {
   }
 };
 
-// 空间换时间，Map 来帮忙
-var mapTotal = function (nums, target) {
+/**
+ *  空间换时间，Map 来帮忙
+ * */
+// 自己写的
+var twoSum1 = function (nums, target) {
   const flag = {};
   for (var i = 0; i < nums.length; i++) {
     flag[i] = nums[i];
@@ -28,4 +31,29 @@ var mapTotal = function (nums, target) {
   }
 };
 
-console.log("两数求和问题=====>", mapTotal([2, 7, 11, 15], 9));
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ * 案例
+ */
+const twoSum2 = function (nums, target) {
+  // 这里我用对象来模拟 map 的能力
+  const diffs = {};
+  // 缓存数组长度
+  const len = nums.length;
+  // 遍历数组
+  for (let i = 0; i < len; i++) {
+    // 判断当前值对应的 target 差值是否存在（是否已遍历过）
+    if (diffs[target - nums[i]] !== undefined) {
+      // 若有对应差值，那么答案get！
+      return [diffs[target - nums[i]], i];
+    }
+    // 若没有对应差值，则记录当前值
+    diffs[nums[i]] = i;
+  }
+};
+
+// ES6 中的 Map
+
+console.log("两数求和问题=====>", twoSum2([2, 7, 11, 15], 9));
